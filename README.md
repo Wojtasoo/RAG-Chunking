@@ -10,6 +10,11 @@ CodeRAG-Reranker/
 ├── data/
 │   ├── corpora/                   # Folder with text documents
 │   └── questions_df.csv           # CSV with questions and golden excerpts
+│   └── chatlogs.md                # md file containing example text
+│   └── finance.md                 # md file containing example text
+│   └── pubmed.md                  # md file containing example text
+│   └── wikitexts.md               # md file containing example text
+│   └── state_of_the_union.md      # md file containing example text
 ├── src/
 │   ├── chunker.py                 # Implementation of the FixedTokenChunker
 │   ├── metrics.py                 # Precision and recall metrics
@@ -26,8 +31,7 @@ The dataset consists of:
 - A corpus of documents (`/data/corpora`)
 - A set of questions and corresponding golden excerpts (`questions_df.csv`)
 
-We used the **Wikitext** dataset and filtered it to match the golden queries in the questions file.
-
+We used the datasets and filtered it to match the golden queries in the questions file.
 
 ## Components
 
@@ -68,14 +72,9 @@ Ran experiments varying:
 
 ### Results Summary
 
-| Chunk Size | Top N | Avg Precision | Avg Recall |
-|------------|-------|----------------|-------------|
-| 200        | 5     | 0.72           | 0.60        |
-| 200        | 10    | 0.66           | 0.78        |
-| 400        | 5     | 0.69           | 0.58        |
-| 400        | 10    | 0.63           | 0.74        |
-
-(Example values – refer to actual experiment output for final numbers)
+   chunk_size  top_n  avg_precision  avg_recall
+0         200      5       0.210127    0.676520
+1         200     10       0.144429    0.780596
 
 
 ## Usage
@@ -104,7 +103,3 @@ python src/experiment.py
 
 - **Best Performing Setting**:  
   The configuration with a chunk size of 200 tokens and top-10 retrievals offered the highest recall, making it suitable for recall-focused applications like exploratory search.
-
-- **Embedding Model Performance**:  
-  The `all-MiniLM-L6-v2` model was lightweight and efficient for this task. Future work could explore more powerful embeddings for improved semantic matching.
-
